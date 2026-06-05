@@ -77,23 +77,24 @@ class AppState extends ChangeNotifier {
   void _save() {
     final p = _prefs;
     if (p == null) return;
-    p.setBool('darkMode', _darkMode);
     if (_profileImagePath != null) {
       p.setString('profileImagePath', _profileImagePath!);
     } else {
       p.remove('profileImagePath');
     }
-    p.setString('username', username);
-    p.setString('limit', limit);
-    p.setString('balance', balance);
-    p.setString('saved', saved);
-    p.setString('invoice', invoice);
-    p.setString('loan', loan);
-    p.setString('income', income);
-    p.setString(
-      'transactions',
-      jsonEncode(transactions.map((t) => t.toJson()).toList()),
-    );
+    p
+      ..setBool('darkMode', _darkMode)
+      ..setString('username', username)
+      ..setString('limit', limit)
+      ..setString('balance', balance)
+      ..setString('saved', saved)
+      ..setString('invoice', invoice)
+      ..setString('loan', loan)
+      ..setString('income', income)
+      ..setString(
+        'transactions',
+        jsonEncode(transactions.map((t) => t.toJson()).toList()),
+      );
   }
 
   bool _viewValues = true;
