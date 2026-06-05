@@ -5,12 +5,16 @@ class HistoricCard extends StatelessWidget {
   final String title;
   final String subTitle;
   final IconData icon;
+  final String amount;
+  final String detail;
   final VoidCallback? onTap;
 
   const HistoricCard(
     this.title,
     this.subTitle,
     this.icon, {
+    this.amount = r'R$ 30,00',
+    this.detail = 'Pix',
     this.onTap,
     super.key,
   });
@@ -30,11 +34,11 @@ class HistoricCard extends StatelessWidget {
                 Container(
                   height: 48,
                   width: 48,
-                  decoration: const BoxDecoration(
+                  decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    color: AppColors.labelButton,
+                    color: AppColors.surface(context),
                   ),
-                  child: Icon(icon),
+                  child: Icon(icon, color: AppColors.content(context)),
                 ),
                 const SizedBox(width: 20),
                 Expanded(
@@ -68,12 +72,12 @@ class HistoricCard extends StatelessWidget {
                       ),
                       const SizedBox(height: 5),
                       Text(
-                        r'R$ 30,00',
+                        amount,
                         style: Theme.of(context).textTheme.titleSmall,
                       ),
                       const SizedBox(height: 5),
                       Text(
-                        'Pix',
+                        detail,
                         style: Theme.of(context).textTheme.bodySmall,
                       ),
                     ],

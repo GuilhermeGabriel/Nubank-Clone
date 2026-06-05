@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:nubank_clone/constants/app_colors.dart';
-import 'package:nubank_clone/constants/mocked_values.dart';
 import 'package:nubank_clone/constants/nu_icons.dart';
+import 'package:nubank_clone/core/app_state.dart';
 import 'package:nubank_clone/pages/account/widgets/historic_card.dart';
 import 'package:nubank_clone/pages/credit/widgets/credit_menu.dart';
 import 'package:nubank_clone/utils/extensions/router_context_extension.dart';
+import 'package:provider/provider.dart';
 
 class CreditScreen extends StatelessWidget {
   const CreditScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final state = Provider.of<AppState>(context);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -60,7 +61,7 @@ class CreditScreen extends StatelessWidget {
                         ),
                         const SizedBox(height: 13),
                         Text(
-                          'R\$ ${MockedValues.invoice}',
+                          'R\$ ${state.invoice}',
                           style: Theme.of(context)
                               .textTheme
                               .headlineSmall
@@ -71,10 +72,10 @@ class CreditScreen extends StatelessWidget {
                           text: TextSpan(
                             text: 'Limite disponível ',
                             style: Theme.of(context).textTheme.bodyMedium,
-                            children: const <TextSpan>[
+                            children: <TextSpan>[
                               TextSpan(
-                                text: 'R\$ ${MockedValues.limit}',
-                                style: TextStyle(
+                                text: 'R\$ ${state.limit}',
+                                style: const TextStyle(
                                   color: AppColors.limit,
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -150,25 +151,25 @@ class CreditScreen extends StatelessWidget {
               ),
             ),
             Container(height: 0.3, color: AppColors.line),
-            const ColoredBox(
-              color: AppColors.labelButton,
-              child: Column(
+            ColoredBox(
+              color: AppColors.surface(context),
+              child: const Column(
                 children: [
                   SizedBox(height: 20),
                   HistoricCard(
                     'Pagamento recebido',
                     r'Você pagou R$ 50,00',
-                    MdiIcons.cubeSend,
+                    Icons.send_outlined,
                   ),
                   HistoricCard(
                     'Supermercado',
                     'Ricardo Dalarme',
-                    MdiIcons.cubeSend,
+                    Icons.send_outlined,
                   ),
                   HistoricCard(
                     'Transferência enviada',
                     'Ricardo Dalarme',
-                    MdiIcons.cubeSend,
+                    Icons.send_outlined,
                   ),
                 ],
               ),

@@ -1,9 +1,8 @@
 import 'package:bootstrap_icons/bootstrap_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:nubank_clone/constants/app_colors.dart';
-import 'package:nubank_clone/constants/mocked_values.dart';
 import 'package:nubank_clone/constants/nu_icons.dart';
+import 'package:nubank_clone/core/app_state.dart';
 import 'package:nubank_clone/pages/account/widgets/account_menu.dart';
 import 'package:nubank_clone/pages/account/widgets/historic_card.dart';
 import 'package:nubank_clone/pages/charge/charge_screen.dart';
@@ -13,16 +12,18 @@ import 'package:nubank_clone/pages/payment/payment_screen.dart';
 import 'package:nubank_clone/pages/transfer/transfer_screen.dart';
 import 'package:nubank_clone/utils/extensions/router_context_extension.dart';
 import 'package:nubank_clone/widgets/label_button.dart';
+import 'package:provider/provider.dart';
 
 class AccountScreen extends StatelessWidget {
   const AccountScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final state = Provider.of<AppState>(context);
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColors.background(context),
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: AppColors.background(context),
         elevation: 0,
         leading: IconButton(
           icon: const Icon(
@@ -34,7 +35,7 @@ class AccountScreen extends StatelessWidget {
         actions: [
           IconButton(
             icon: const Icon(
-              MdiIcons.helpCircleOutline,
+              Icons.help_outline,
               color: AppColors.secondaryText,
             ),
             onPressed: () {},
@@ -61,14 +62,14 @@ class AccountScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 7),
                   Text(
-                    'R\$ ${MockedValues.balance}',
+                    'R\$ ${state.balance}',
                     style: Theme.of(context).textTheme.displaySmall,
                   ),
                   const SizedBox(height: 50),
                   AccountMenu(
                     'Dinheiro guardado',
                     Text(
-                      'R\$ ${MockedValues.saved}',
+                      'R\$ ${state.saved}',
                       style: Theme.of(context)
                           .textTheme
                           .bodyMedium
@@ -81,7 +82,7 @@ class AccountScreen extends StatelessWidget {
                     'Rendimento total da conta',
                     RichText(
                       text: TextSpan(
-                        text: '+R\$ ${MockedValues.income}',
+                        text: '+R\$ ${state.income}',
                         style:
                             Theme.of(context).textTheme.titleMedium?.copyWith(
                                   color: AppColors.limit,
@@ -98,7 +99,7 @@ class AccountScreen extends StatelessWidget {
                         ],
                       ),
                     ),
-                    MdiIcons.signal,
+                    Icons.show_chart,
                   ),
                 ],
               ),
@@ -121,14 +122,14 @@ class AccountScreen extends StatelessWidget {
                     ),
                     LabelButton(
                       'Pagar',
-                      MdiIcons.barcode,
+                      Icons.qr_code,
                       onPressed: () => context.showBottomSheet(
                         const PaymentScreen(),
                       ),
                     ),
                     LabelButton(
                       'Transferir',
-                      MdiIcons.cubeSend,
+                      Icons.send_outlined,
                       onPressed: () => context.showBottomSheet(
                         TransferScreen(),
                       ),
@@ -142,7 +143,7 @@ class AccountScreen extends StatelessWidget {
                     ),
                     LabelButton(
                       'Cobrar',
-                      MdiIcons.messageAlertOutline,
+                      Icons.chat_bubble_outline,
                       onPressed: () => context.showBottomSheet(ChargeScreen()),
                     ),
                     const SizedBox(width: 20),
@@ -164,20 +165,30 @@ class AccountScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 30),
+            for (final transaction in state.transactions)
+              HistoricCard(
+                transaction.label,
+                transaction.title,
+                transaction.icon,
+                amount: 'R\$ ${transaction.amount}',
+                detail: transaction.subtitle.isEmpty
+                    ? (transaction.isIncome ? 'Recebido' : 'Compra')
+                    : transaction.subtitle,
+              ),
             const HistoricCard(
               'Transferência enviada',
               'Ricardo Dalarme de Oliveira Filho',
-              MdiIcons.cubeSend,
+              Icons.send_outlined,
             ),
             const HistoricCard(
               'Transferência enviada',
               'Ricardo Dalarme',
-              MdiIcons.cubeSend,
+              Icons.send_outlined,
             ),
             const HistoricCard(
               'Transferência enviada',
               'Ricardo Dalarme',
-              MdiIcons.cubeSend,
+              Icons.send_outlined,
             ),
           ],
         ),

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:nubank_clone/constants/app_colors.dart';
 import 'package:nubank_clone/constants/assets.gen.dart';
 import 'package:nubank_clone/constants/nu_icons.dart';
@@ -48,17 +47,17 @@ class PixScreen extends StatelessWidget {
                     children: [
                       LabelButton(
                         'Pagar',
-                        MdiIcons.arrangeSendToBack,
+                        Icons.swap_horiz,
                         onPressed: () {},
                       ),
                       LabelButton(
                         'Transferir',
-                        MdiIcons.cubeSend,
+                        Icons.send_outlined,
                         onPressed: () {},
                       ),
                       LabelButton(
                         'Cobrar',
-                        MdiIcons.messageAlertOutline,
+                        Icons.chat_bubble_outline,
                         onPressed: () {},
                       ),
                     ],
@@ -71,9 +70,9 @@ class PixScreen extends StatelessWidget {
           Container(height: 1, color: AppColors.line),
           const Column(
             children: [
-              PixMenu('Minhas chaves', MdiIcons.keyChain),
-              PixMenu('Meu limite Pix', MdiIcons.tuneVariant),
-              PixMenu('Me ajuda', MdiIcons.helpCircleOutline),
+              PixMenu('Minhas chaves', Icons.vpn_key_outlined),
+              PixMenu('Meu limite Pix', Icons.tune),
+              PixMenu('Me ajuda', Icons.help_outline),
             ],
           ),
         ],

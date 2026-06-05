@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:nubank_clone/constants/app_colors.dart';
-import 'package:nubank_clone/constants/mocked_values.dart';
 import 'package:nubank_clone/constants/nu_icons.dart';
+import 'package:nubank_clone/core/app_state.dart';
 import 'package:nubank_clone/utils/extensions/router_context_extension.dart';
 import 'package:nubank_clone/widgets/nu_outlined_button.dart';
+import 'package:provider/provider.dart';
 
 class LoanScreen extends StatelessWidget {
   const LoanScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final state = Provider.of<AppState>(context);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -26,7 +27,7 @@ class LoanScreen extends StatelessWidget {
         actions: [
           IconButton(
             icon: const Icon(
-              MdiIcons.helpCircleOutline,
+              Icons.help_outline,
               color: AppColors.secondaryText,
             ),
             onPressed: () {},
@@ -44,7 +45,7 @@ class LoanScreen extends StatelessWidget {
                 children: [
                   const SizedBox(height: 30),
                   Text(
-                    'O valor disponível no momento é de R\$ ${MockedValues.loan}',
+                    'O valor disponível no momento é de R\$ ${state.loan}',
                     style: Theme.of(context).textTheme.titleLarge,
                   ),
                   const SizedBox(height: 15),

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:nubank_clone/pages/home/widgets/main_card.dart';
 
 class InsuranceCard extends StatelessWidget {
@@ -19,7 +18,7 @@ class InsuranceCard extends StatelessWidget {
         ),
       ],
       onTap: () {},
-      icon: MdiIcons.heartOutline,
+      icon: Icons.favorite_border,
     );
   }
 }

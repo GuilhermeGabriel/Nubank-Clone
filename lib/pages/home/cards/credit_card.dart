@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:nubank_clone/constants/app_colors.dart';
-import 'package:nubank_clone/constants/mocked_values.dart';
 import 'package:nubank_clone/constants/nu_icons.dart';
 import 'package:nubank_clone/core/app_state.dart';
 import 'package:nubank_clone/pages/credit/credit_screen.dart';
@@ -13,7 +12,8 @@ class CreditCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final viewValues = Provider.of<AppState>(context).viewValues;
+    final state = Provider.of<AppState>(context);
+    final viewValues = state.viewValues;
 
     return MainCard(
       'Cartão de Crédito',
@@ -37,12 +37,12 @@ class CreditCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'R\$ ${MockedValues.invoice}',
+                'R\$ ${state.invoice}',
                 style: Theme.of(context).textTheme.headlineSmall,
               ),
               const SizedBox(height: 5),
               Text(
-                'Limite disponível R\$ ${MockedValues.limit}',
+                'Limite disponível R\$ ${state.limit}',
                 style: Theme.of(context)
                     .textTheme
                     .bodySmall

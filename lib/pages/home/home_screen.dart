@@ -1,9 +1,11 @@
+import 'dart:io';
+
 import 'package:bootstrap_icons/bootstrap_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:nubank_clone/constants/app_colors.dart';
-import 'package:nubank_clone/constants/mocked_values.dart';
 import 'package:nubank_clone/constants/nu_icons.dart';
 import 'package:nubank_clone/core/app_state.dart';
+import 'package:nubank_clone/pages/admin/admin_screen.dart';
 import 'package:nubank_clone/pages/charge/charge_screen.dart';
 import 'package:nubank_clone/pages/deposit/deposit_screen.dart';
 import 'package:nubank_clone/pages/home/cards/account_card.dart';
@@ -20,7 +22,6 @@ import 'package:nubank_clone/pages/recharge/recharge_screen.dart';
 import 'package:nubank_clone/pages/refer/refer_screen.dart';
 import 'package:nubank_clone/pages/transfer/transfer_screen.dart';
 import 'package:nubank_clone/utils/extensions/router_context_extension.dart';
-import 'package:nubank_clone/widgets/circle_button.dart';
 import 'package:nubank_clone/widgets/label_button.dart';
 import 'package:provider/provider.dart';
 
@@ -37,12 +38,12 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DecoratedBox(
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
-          colors: [AppColors.primary, Colors.white],
-          stops: [0.5, 0.5],
+          colors: [AppColors.primary, AppColors.background(context)],
+          stops: const [0.5, 0.5],
         ),
       ),
       child: SafeArea(
@@ -68,14 +69,33 @@ class HomeScreen extends StatelessWidget {
 
     return Container(
       color: AppColors.primary,
-      padding: const EdgeInsets.fromLTRB(18, 20, 16, 25),
+      padding: const EdgeInsets.fromLTRB(24, 20, 16, 25),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              CircleButton(BootstrapIcons.person, () {}),
+              GestureDetector(
+                onTap: () => context.push(const AdminScreen()),
+                child: Container(
+                  height: 48,
+                  width: 48,
+                  decoration: BoxDecoration(
+                    color: AppColors.secondary,
+                    shape: BoxShape.circle,
+                    image: state.profileImagePath != null
+                        ? DecorationImage(
+                            image: FileImage(File(state.profileImagePath!)),
+                            fit: BoxFit.cover,
+                          )
+                        : null,
+                  ),
+                  child: state.profileImagePath == null
+                      ? const Icon(BootstrapIcons.person, color: Colors.white)
+                      : null,
+                ),
+              ),
               Row(
                 children: [
                   IconButton(
@@ -105,12 +125,16 @@ class HomeScreen extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 30),
-          Text(
-            'Olá, ${MockedValues.username}',
-            style: Theme.of(context)
-                .textTheme
-                .titleMedium
-                ?.copyWith(color: Colors.white, fontWeight: FontWeight.w600),
+          GestureDetector(
+            // Acesso escondido ao painel de demonstração: segure aqui.
+            onLongPress: () => context.push(const AdminScreen()),
+            child: Text(
+              'Olá, ${state.username}',
+              style: Theme.of(context)
+                  .textTheme
+                  .titleMedium
+                  ?.copyWith(color: Colors.white, fontWeight: FontWeight.w600),
+            ),
           ),
         ],
       ),
@@ -118,9 +142,10 @@ class HomeScreen extends StatelessWidget {
   }
 
   Widget _body(BuildContext context) {
+    final state = Provider.of<AppState>(context);
     return Container(
       padding: const EdgeInsets.only(bottom: 24),
-      color: Colors.white,
+      color: AppColors.background(context),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -192,9 +217,9 @@ class HomeScreen extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
             child: DecoratedBox(
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(10)),
-                color: AppColors.labelButton,
+              decoration: BoxDecoration(
+                borderRadius: const BorderRadius.all(Radius.circular(10)),
+                color: AppColors.surface(context),
               ),
               child: Material(
                 color: Colors.transparent,
@@ -205,9 +230,9 @@ class HomeScreen extends StatelessWidget {
                     padding: const EdgeInsets.all(15),
                     child: Row(
                       children: [
-                        const Icon(
+                        Icon(
                           NuIcons.ic_card_nu,
-                          color: AppColors.text,
+                          color: AppColors.content(context),
                         ),
                         const SizedBox(width: 12),
                         Text(
@@ -233,7 +258,7 @@ class HomeScreen extends StatelessWidget {
               children: [
                 const SizedBox(width: 24),
                 TextCard(
-                  text: 'Você tem R\$ ${MockedValues.loan} disponíveis para ',
+                  text: 'Você tem R\$ ${state.loan} disponíveis para ',
                   highlightText: 'empréstimo.',
                   onTap: () => context.push(
                     const LoanScreen(),

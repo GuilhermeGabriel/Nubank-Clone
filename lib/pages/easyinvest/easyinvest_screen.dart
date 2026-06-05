@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:nubank_clone/constants/app_colors.dart';
 import 'package:nubank_clone/constants/assets.gen.dart';
 import 'package:nubank_clone/constants/nu_icons.dart';
@@ -27,7 +26,7 @@ class EasyInvestScreen extends StatelessWidget {
         onPressed: null,
         elevation: 0,
         backgroundColor: AppColors.primary,
-        child: Icon(MdiIcons.arrowRight),
+        child: Icon(Icons.arrow_forward),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 20),

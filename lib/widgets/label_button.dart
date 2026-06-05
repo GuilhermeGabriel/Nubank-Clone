@@ -27,14 +27,14 @@ class LabelButton extends StatelessWidget {
               ElevatedButton(
                 onPressed: onPressed,
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.labelButton,
+                  backgroundColor: AppColors.surface(context),
                   shape: const CircleBorder(),
                   fixedSize: const Size(72, 72),
                   elevation: 0,
                 ),
                 child: Icon(
                   icon,
-                  color: AppColors.text,
+                  color: AppColors.content(context),
                 ),
               ),
               if (tag != null)

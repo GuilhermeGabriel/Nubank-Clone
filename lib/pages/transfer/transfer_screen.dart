@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:nubank_clone/constants/app_colors.dart';
-import 'package:nubank_clone/constants/mocked_values.dart';
+import 'package:nubank_clone/core/app_state.dart';
 import 'package:nubank_clone/widgets/nu_input_field.dart';
+import 'package:provider/provider.dart';
 
 class TransferScreen extends StatelessWidget {
   TransferScreen({super.key});
@@ -13,6 +14,7 @@ class TransferScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final state = Provider.of<AppState>(context);
     return SizedBox(
       height: MediaQuery.of(context).size.height - 50,
       child: Scaffold(
@@ -47,7 +49,7 @@ class TransferScreen extends StatelessWidget {
                   style: Theme.of(context).textTheme.bodyMedium,
                   children: [
                     TextSpan(
-                      text: 'R\$ ${MockedValues.balance}',
+                      text: 'R\$ ${state.balance}',
                       style: Theme.of(context).textTheme.bodyLarge,
                     ),
                   ],
