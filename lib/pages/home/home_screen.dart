@@ -20,7 +20,7 @@ import 'package:nubank_clone/pages/payment/payment_screen.dart';
 import 'package:nubank_clone/pages/pix/pix_screen.dart';
 import 'package:nubank_clone/pages/recharge/recharge_screen.dart';
 import 'package:nubank_clone/pages/refer/refer_screen.dart';
-import 'package:nubank_clone/pages/transfer/transfer_screen.dart';
+import 'package:nubank_clone/pages/transfer/transfer_contact_screen.dart';
 import 'package:nubank_clone/utils/extensions/router_context_extension.dart';
 import 'package:nubank_clone/widgets/label_button.dart';
 import 'package:provider/provider.dart';
@@ -173,7 +173,8 @@ class HomeScreen extends StatelessWidget {
                 LabelButton(
                   'Transferir',
                   NuIcons.ic_savings_global_action_transfer_out,
-                  onPressed: () => context.showBottomSheet(TransferScreen()),
+                  onPressed: () =>
+                      context.push(const TransferContactScreen()),
                 ),
                 LabelButton(
                   'Depositar',

@@ -23,9 +23,9 @@ class DiscoverCard extends StatelessWidget {
     return Container(
       width: 300,
       margin: const EdgeInsets.only(right: 15),
-      decoration: const BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(10)),
-        color: AppColors.labelButton,
+      decoration: BoxDecoration(
+        borderRadius: const BorderRadius.all(Radius.circular(10)),
+        color: AppColors.surface(context),
       ),
       child: Material(
         color: Colors.transparent,
@@ -42,7 +42,7 @@ class DiscoverCard extends StatelessWidget {
                     Text(
                       title,
                       style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                            color: AppColors.text,
+                            color: AppColors.content(context),
                             fontWeight: FontWeight.w500,
                           ),
                     ),

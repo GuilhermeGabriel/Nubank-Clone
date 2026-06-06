@@ -3,6 +3,7 @@ import 'package:nubank_clone/constants/app_colors.dart';
 import 'package:nubank_clone/constants/assets.gen.dart';
 import 'package:nubank_clone/constants/nu_icons.dart';
 import 'package:nubank_clone/pages/pix/widgets/pix_menu.dart';
+import 'package:nubank_clone/pages/transfer/transfer_contact_screen.dart';
 import 'package:nubank_clone/utils/extensions/router_context_extension.dart';
 import 'package:nubank_clone/widgets/label_button.dart';
 
@@ -12,7 +13,7 @@ class PixScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white,
+      color: AppColors.background(context),
       height: MediaQuery.of(context).size.height - 50,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -53,7 +54,8 @@ class PixScreen extends StatelessWidget {
                       LabelButton(
                         'Transferir',
                         Icons.send_outlined,
-                        onPressed: () {},
+                        onPressed: () =>
+                            context.push(const TransferContactScreen()),
                       ),
                       LabelButton(
                         'Cobrar',

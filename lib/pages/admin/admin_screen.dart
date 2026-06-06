@@ -5,6 +5,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:nubank_clone/constants/app_colors.dart';
 import 'package:nubank_clone/core/app_state.dart';
 import 'package:nubank_clone/core/notification_service.dart';
+import 'package:nubank_clone/pages/transfer/transfer_data.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -30,6 +31,10 @@ class _AdminScreenState extends State<AdminScreen> {
   final _txSubtitle = TextEditingController();
   final _txAmount = TextEditingController();
   bool _txIsIncome = false;
+
+  // Contato falso
+  final _contactName = TextEditingController();
+  final _contactInstitution = TextEditingController();
 
   // Edição dos dados do app
   late final TextEditingController _username;
@@ -61,6 +66,8 @@ class _AdminScreenState extends State<AdminScreen> {
       _txTitle,
       _txSubtitle,
       _txAmount,
+      _contactName,
+      _contactInstitution,
       _username,
       _balance,
       _saved,
@@ -120,6 +127,24 @@ class _AdminScreenState extends State<AdminScreen> {
     _txSubtitle.clear();
     _txAmount.clear();
     _toast('Item adicionado ao extrato!');
+  }
+
+  void _addContact() {
+    final name = _contactName.text.trim();
+    if (name.isEmpty) {
+      _toast('Digite o nome do contato');
+      return;
+    }
+    final institution = _contactInstitution.text.trim();
+    context.read<AppState>().addCustomContact(
+          TransferContact(
+            name,
+            institution.isEmpty ? 'NU PAGAMENTOS - IP' : institution,
+          ),
+        );
+    _contactName.clear();
+    _contactInstitution.clear();
+    _toast('Contato adicionado!');
   }
 
   Future<void> _pickProfileImage() async {
@@ -313,6 +338,44 @@ class _AdminScreenState extends State<AdminScreen> {
                   icon: const Icon(Icons.delete_outline, color: Colors.red),
                   onPressed: () =>
                       context.read<AppState>().removeTransaction(i),
+                ),
+              ),
+
+          const SizedBox(height: 32),
+
+          // ---------- Contatos falsos ----------
+          _section('Contatos para transferência'),
+          _field('Nome do contato', _contactName, hint: 'Ex: João da Silva'),
+          _field(
+            'Instituição (opcional)',
+            _contactInstitution,
+            hint: 'Ex: NU PAGAMENTOS - IP',
+          ),
+          const SizedBox(height: 4),
+          _primaryButton('Adicionar contato', _addContact),
+          const SizedBox(height: 12),
+          if (state.customContacts.isEmpty)
+            const Padding(
+              padding: EdgeInsets.symmetric(vertical: 8),
+              child: Text(
+                'Nenhum contato fixo. Os contatos do fluxo são aleatórios.',
+                style: TextStyle(color: AppColors.secondaryText),
+              ),
+            )
+          else
+            for (var i = 0; i < state.customContacts.length; i++)
+              ListTile(
+                contentPadding: EdgeInsets.zero,
+                leading: const Icon(
+                  Icons.person_outline,
+                  color: AppColors.primary,
+                ),
+                title: Text(state.customContacts[i].name),
+                subtitle: Text(state.customContacts[i].institution),
+                trailing: IconButton(
+                  icon: const Icon(Icons.delete_outline, color: Colors.red),
+                  onPressed: () =>
+                      context.read<AppState>().removeCustomContact(i),
                 ),
               ),
 

@@ -18,9 +18,9 @@ class TextCard extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.only(right: 14),
       width: 280,
-      decoration: const BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(10)),
-        color: AppColors.labelButton,
+      decoration: BoxDecoration(
+        borderRadius: const BorderRadius.all(Radius.circular(10)),
+        color: AppColors.surface(context),
       ),
       child: Material(
         color: Colors.transparent,
